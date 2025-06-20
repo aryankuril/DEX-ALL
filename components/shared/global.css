@@ -1,0 +1,157 @@
+/* Full calendar container */
+abbr:where([title]) {
+    -webkit-text-decoration: none;
+    text-decoration: none;
+  } 
+.react-calendar {
+  width: 100%;
+  border: none;
+
+  background: transparent !important;
+  box-shadow: none !important;
+  font-family: 'Inter', sans-serif;
+}
+
+/* Hide top navigation */
+.react-calendar__navigation {
+  display: none;
+}
+
+/* Weekday labels (Sun, Mon, ...) */
+.react-calendar__month-view__weekdays {
+  display: grid !important;
+  grid-template-columns: repeat(7, 1fr);
+  text-align: center;
+  padding: 8px 0;
+  color: #000;
+  font-family: Satoshi;
+  font-size: 20px;
+  font-style: normal;
+  font-weight: 500;
+  line-height: normal;
+  text-transform: uppercase; /* <- changed to uppercase */
+  text-decoration: none !important;
+  border-bottom: none !important;
+  cursor: default;
+}
+
+
+.react-calendar__month-view__weekdays__weekday {
+  text-transform: uppercase;
+  text-decoration: none;
+}
+
+/* Main grid for day cells — always 6 rows */
+.react-calendar__month-view__days {
+  display: grid !important;
+  border-radius: 20px;
+  overflow: hidden; /* helps with visual consistency */
+  border: 1px solid #ccc; /* optional: visible border */
+   grid-template-columns: repeat(7, 1fr); /* 7 columns */
+   /* grid-auto-rows: 100px; */
+  grid-template-rows: repeat(6, 100px);    /* 6 rows */
+
+}
+
+/* Each day tile */
+.react-calendar__tile {
+  border: 1px solid #dcdcdc !important;
+  height: 100%;
+  padding: 0.5rem;
+  background: transparent !important;
+  
+  position: relative;
+}
+
+/* Highlight current day */
+.react-calendar__tile--now {
+
+background: var(--gra, linear-gradient(0deg, #313131 0%, #595959 100%)) !important;
+color: #fff !important;
+}
+
+/* Events inside tile */
+.react-calendar__tile p {
+  margin-top: -60px;
+ color: var(--white, #FFF);
+  font-size: 10px;
+  font-weight: 500;
+ display: flex;
+padding: 5px 15px;
+justify-content: center;
+align-items: center;
+gap: 10px;
+align-self: stretch;
+border-radius: 15px;
+background: var(--blue-grad, linear-gradient(180deg, #2563EB 0%, #153885 100%));
+}
+
+/* Day number (1, 2, 3...) */
+.react-calendar__tile abbr {
+  position: absolute;
+   font-weight: 500;
+  font-size: 20px;
+  bottom: 6px;  /* space from bottom */
+  right: 10px;   /* space from right */
+  font-weight: 500;
+
+}
+/* Fix selected tile text staying white after losing selection */
+/* .react-calendar__tile:enabled:focus,
+.react-calendar__tile:enabled:active {
+  background-color: #2563eb !important;
+  color: #fff !important;
+} */
+
+/* When not selected anymore, revert abbr color back to default */
+.react-calendar__tile:enabled {
+  color: #000; /* or your normal text color */
+}
+
+/* Force day number inside tile (abbr) to inherit from tile */
+.react-calendar__tile abbr {
+  color: inherit;
+}
+      
+/* Filler tiles from prev/next month: KEEP VISIBLE BUT EMPTY */
+.react-calendar__month-view__days__day--neighboringMonth {
+  color: #ccc !important; /* Faint gray number */
+  background: #f9f9f9; /* Slightly dim background */
+  border: 1px solid #e5e5e5 !important;
+  pointer-events: none; /* Disable click */
+  opacity: 0.6;
+   /* visibility: hidden !important; ✅ Ensures cell doesn't take visual space */
+}
+
+@media (max-width: 768px) {
+  /* Make weekday labels smaller */
+  .react-calendar__month-view__weekdays {
+    font-size: 12px;
+    padding: 4px 0;
+  }
+
+  /* Make day tiles smaller */
+  .react-calendar__month-view__days {
+    grid-template-rows: repeat(6, 60px); /* Reduce row height */
+  }
+
+  .react-calendar__tile abbr {
+    font-size: 12px;
+    right: 5px;
+    bottom: 4px;
+  }
+
+  .react-calendar__tile p {
+    font-size: 5px;
+   padding: 1px 15px;
+    border-radius: 10px;
+    margin-top: -40px; /* Adjust for smaller tile */
+  }
+
+  /* Adjust calendar container spacing if needed */
+  .calendar-mobile-wrap {
+    padding: 0 10px !important;
+  }
+}
+
+
