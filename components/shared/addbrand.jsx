@@ -1,5 +1,6 @@
 "use client"
 import React, { useState, useRef, useEffect } from 'react';
+import Image from 'next/image';
 
 const userData = [
   {
@@ -12,21 +13,22 @@ const userData = [
 const icons = [
   {
     platform: "instagram",
-    src: "https://cdn-icons-png.flaticon.com/512/1384/1384063.png",
+    src: "/instagram.png", // from public folder
   },
   {
     platform: "facebook",
-    src: "https://cdn-icons-png.flaticon.com/512/733/733547.png",
+    src: "/facebook.png",
   },
   {
     platform: "threads",
-    src: "https://cdn-icons-png.flaticon.com/512/11084/11084249.png",
+    src: "/threads.png",
   },
   {
     platform: "youtube",
-    src: "https://cdn-icons-png.flaticon.com/512/1384/1384060.png",
+    src: "/yt.png",
   },
 ];
+
 const Addbrand = () => {
       // State to manage added brands
       const [brands, setBrands] = useState([]);
@@ -494,46 +496,72 @@ backdropFilter: 'blur(8px)',
 }}
 >
             {/* Brands Added Counter */}
-            <div className="bg-white rounded-3xl shadow-xl p-6 flex flex-col items-center justify-center text-center relative overflow-hidden">
-<div className="relative w-55 h-20 top-5 overflow-hidden flex items-start justify-center">
-{/* Background arc */}
-<div className="w-44 h-50 rounded-full border-[40px] border-gray-200 absolute top-0 rotate-180"></div>
+   <div className="bg-white rounded-3xl shadow-xl  p-2 flex flex-col items-center justify-center text-center relative overflow-hidden">
+  {/* SVG + Progress Fill */}
+  <div className="relative w-[300px] h-[150px] mt-2 sm:mt-5 overflow-hidden flex items-center justify-center">
+<div className=" -mt-3">
+   <svg
+  viewBox="0 0 300 180"
+  xmlns="http://www.w3.org/2000/svg"
+  className="w-[300px] h-[150px]"
+>
+  {/* Background Arc */}
+  <path
+    d="M20,160 A130,130 0 0,1 280,160"
+    fill="none"
+    stroke="#E5E5E5"
+    strokeWidth="35"
+  />
 
-{/* Progress arc */}
-<div
-className="w-44 h-50 rounded-full border-[40px] border-green-500 absolute top-0 rotate-180"
-style={{
-
-clipPath: `inset(0 ${100 - (brands.length / 5) * 100}% 50% 0)`,
-transform: 'rotate(180deg)',
-}}
-></div>
-
-{/* Centered Progress Text */}
-<div className="absolute top-13 text-2xl font-bold text-gray-800 z-10">
-{brands.length}/5
+  {/* Filled Arc */}
+  <path
+    d="M20,160 A130,130 0 0,1 280,160"
+    fill="none"
+    stroke="#22c55e"
+    strokeWidth="35"
+    strokeDasharray="440"
+    strokeDashoffset={440 - (brands.length / 5) * 440}
+    strokeLinecap="round"
+    style={{
+      transition: 'stroke-dashoffset 0.5s ease-in-out'
+    }}
+  />
+</svg>
 </div>
+ {/* Centered Text */}
+    <div className="absolute top-[70%] left-[50%] translate-x-[-50%] translate-y-[-20%] text-4xl font-bold text-gray-800 z-20">
+      {brands.length}/5
+    </div>
+  </div>
+
+  {/* Subtext */}
+  <div className="mt-6 sm:-mt-1 text-gray-600 text-lg">Brands added</div>
+
+  {/* Button Group */}
+  <div
+    style={{
+      background:
+        'radial-gradient(55.54% 55.54% at 50% 44.46%, #303030 0%, #252525 100%)',
+    }}
+    className="mt-2 mb-2 flex px-3 py-2  bg-black rounded-[10px]"
+  >
+    <button className="px-3 py-2   text-white text-sm font-medium">
+      Upgrade To
+    </button>
+    <button
+      style={{
+        borderRadius: '10px',
+        background:
+          'linear-gradient(196deg, #2CBE34 10.17%, #156319 89.14%)',
+      }}
+      className="px-3 py-2 text-white text-sm font-medium hover:bg-green-600 transition duration-300"
+    >
+      Pro
+    </button>
+
+  </div>
 </div>
 
-<div className="mt-10 text-gray-600 text-lg">Brands added</div>
-
-<div style={{ 
-
-background:' var(--Radial, radial-gradient(55.54% 55.54% at 50% 44.46%, #303030 0%, #252525 100%))' 
-
-}}  className="mt-4 flex  px-3 py-2 bg-black rounded-[10px]">
-
-<button  className="px-3 py-2  text-white  text-sm font-medium">
-Upgrade To
-</button>
-<button style={{ borderRadius: '10px',
-
-background:' var(--green-grad, linear-gradient(196deg, #2CBE34 10.17%, #156319 89.14%))' }} 
-className="px-3 py-2 bg-green-500 text-white rounded-full text-sm font-medium hover:bg-green-600 transition duration-300">
-Pro
-</button>
-</div>
-</div>
 
 
            
