@@ -2,7 +2,7 @@
 import React, { useState, useEffect, Fragment } from 'react';
 import { Listbox, Transition } from '@headlessui/react';
 import { CheckIcon, ChevronUpDownIcon, BellIcon, XMarkIcon, TrashIcon } from '@heroicons/react/24/outline'; // Using 24/outline for consistent icons
-// import Image from 'next/image';
+import Image from 'next/image';
 
 function App() {
   const maxUsers = 5;
@@ -42,6 +42,7 @@ function App() {
   const [nameInput, setNameInput] = useState('');
 
   const roles = [
+    
     { id: 1, name: 'Admin' },
     { id: 2, name: 'SM Executive' },
     { id: 3, name: 'Editor' },
@@ -160,11 +161,11 @@ const getRelativeTime = (dateString) => {
    {/* Add User Card & User Progress Card Section */}
 <div className="relative flex justify-center flex-col lg:flex-row gap-6">
   {/* SVG Background - visible only on large screens */}
-  <div className="relative -ml-25 hidden lg:block">
+  <div className="relative  -ml-20 hidden lg:block">
     <svg
       xmlns="http://www.w3.org/2000/svg"
-      width="818"
-      height="222"
+      width="850"
+      height="235"
       viewBox="0 0 818 222"
       fill="none"
     >
@@ -177,7 +178,7 @@ const getRelativeTime = (dateString) => {
   </div>
 
   {/* Content Section */}
-  <div className="relative z-10 mt-8 lg:-ml-205 w-full">
+  <div className="relative z-10 mt-8 lg:-ml-210 w-full">
     <h2 className="text-xl font-semibold text-gray-800  ">Add User</h2>
     <p className="text-gray-500 text-sm mb-4">You're one step closer to creating magic!</p>
 
@@ -194,7 +195,7 @@ const getRelativeTime = (dateString) => {
           placeholder="Full Name"
           value={nameInput}
           onChange={(e) => setNameInput(e.target.value)}
-          className="w-full px-2 sm:mb-10 py-2 pl-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-purple-500"
+          className="w-full px-2 sm:mb-10 py-2 pl-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2  text-gray-900"
           required
           disabled={userLimitReached}
         />
@@ -209,69 +210,65 @@ const getRelativeTime = (dateString) => {
           placeholder="Email Id"
           value={emailInput}
           onChange={(e) => setEmailInput(e.target.value)}
-          className="w-full px-2 sm:mb-10 py-2 pl-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-purple-500"
+          className="w-full px-2 sm:mb-10 py-2 pl-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2  text-gray-900"
           required
           disabled={userLimitReached}
         />
       </div>
 
       {/* Role Dropdown */}
-      <div className="w-full sm:w-45 relative z-50 sm:mb-10">
-        <Listbox value={selectedRole} onChange={setSelectedRole} disabled={userLimitReached}>
-          {({ open }) => (
-            <>
-              <Listbox.Button className="relative w-full cursor-default rounded-md bg-white py-2 pl-2 pr-10 text-left text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 focus:outline-none focus:ring-2 focus:ring-purple-500 sm:text-sm sm:leading-6">
-                <span className="block truncate">{selectedRole.name}</span>
-                <span className="pointer-events-none absolute inset-y-0 right-0 flex items-center pr-2">
-                  <ChevronUpDownIcon className="h-5 w-5 text-gray-400" aria-hidden="true" />
-                </span>
-              </Listbox.Button>
+  <div className="w-full sm:w-47 mb-10 relative">
+  <select
+    value={selectedRole ? selectedRole.id : ""}
+    onChange={(e) => {
+      const selectedId = parseInt(e.target.value);
+      const roleObj = roles.find((role) => role.id === selectedId);
+      setSelectedRole(roleObj);
+    }}
+    className="appearance-none w-full border border-gray-300 rounded-md py-2 pl-3 pr-8 focus:outline-none focus:ring-0 hover:bg-transparent text-gray-900"
+  >
+    <option value="" disabled hidden>
+      Role
+    </option>
 
-              <Transition
-                show={open}
-                as={Fragment}
-                leave="transition ease-in duration-100"
-                leaveFrom="opacity-100"
-                leaveTo="opacity-0"
-              >
-                <Listbox.Options className="absolute z-50 mt-1 max-h-60 w-full overflow-auto rounded-md bg-white py-1 text-base shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none sm:text-sm">
-                  {roles.map((role) => (
-                    <Listbox.Option
-                      key={role.id}
-                      className={({ active }) =>
-                        `relative cursor-default select-none py-2 pl-8 pr-4 ${active ? 'bg-purple-100 text-purple-900' : 'text-gray-900'}`
-                      }
-                      value={role}
-                    >
-                      {({ selected, active }) => (
-                        <>
-                          <span className={`block truncate ${selected ? 'font-semibold' : 'font-normal'}`}>
-                            {role.name}
-                          </span>
-                          {selected && (
-                            <span className={`absolute inset-y-0 left-0 flex items-center pl-1.5 ${active ? 'text-purple-600' : 'text-purple-600'}`}>
-                              <CheckIcon className="h-5 w-5" aria-hidden="true" />
-                            </span>
-                          )}
-                        </>
-                      )}
-                    </Listbox.Option>
-                  ))}
-                </Listbox.Options>
-              </Transition>
-            </>
-          )}
-        </Listbox>
-      </div>
+    {roles.map((role) => (
+      <option key={role.id} value={role.id}>
+        {role.name}
+      </option>
+    ))}
+  </select>
+
+  {/* Custom Arrow */}
+  <div className="pointer-events-none absolute inset-y-0 right-2 flex items-center">
+    <svg
+      className="w-4 h-4 text-gray-900"
+      fill="none"
+      stroke="currentColor"
+      viewBox="0 0 24 24"
+    >
+      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M19 9l-7 7-7-7" />
+    </svg>
+  </div>
+</div>
+
+
+
+
 
       {/* Submit Button */}
       <button
+
+      style={{       
+        background: "var(--gra, linear-gradient(0deg, #313131 0%, #595959 100%))",
+      }}
+        onClick={handleAddUser}
         type="submit"
-        className={`px-8 py-2 rounded-[20px] font-medium transition duration-200 mb-10 ${
-          userLimitReached || !emailInput || !nameInput || !selectedRole.name
-            ? 'bg-black text-white cursor-not-allowed'
-            : 'bg-black text-white'
-        }`}
+       className={`px-8 py-2 rounded-[20px] font-medium transition duration-200 mb-10 ${
+  userLimitReached || !emailInput || !nameInput || !selectedRole?.name
+    ? 'bg-black text-white cursor-not-allowed'
+    : 'bg-black text-white'
+}`}
+
         disabled={userLimitReached || !emailInput || !nameInput || !selectedRole.name}
       >
         Add User
@@ -287,29 +284,30 @@ const getRelativeTime = (dateString) => {
           {/* User Progress Card (Right Side) */}
         
 
-           <div className="bg-white rounded-3xl    flex flex-col items-center justify-center text-center relative overflow-hidden">
+            <div className="bg-white rounded-3xl   flex flex-col items-center justify-center text-center relative overflow-hidden">
   {/* SVG + Progress Fill */}
-  <div className="relative w-[530px] h-[150px] mt-2 sm:mt-5 overflow-hidden flex items-center justify-center">
-<div className=" -mt-3">
+  <div className="relative w-[530px] h-[150px] overflow-vissible mt-2 sm:mt-5  flex items-center justify-center">
+<div className=" mt-10 mr-10">
  <svg
-  viewBox="0 0 300 180"
+  viewBox="0 0 300 200"
   xmlns="http://www.w3.org/2000/svg"
   className="w-[400px] h-[150px]"
 >
   {/* Background Arc */}
   <path
-    d="M20,160 A130,130 0 0,1 280,160"
+ d="M20,180 A100,100 0 0,1 330,180"
     fill="none"
     stroke="#E5E5E5"
-     strokeWidth="35"
+     strokeWidth="40"
+      strokeLinecap="round"
   />
 
   {/* Filled Arc */}
   <path
-    d="M20,160 A130,130 0 0,1 280,160"
+ d="M20,180 A100,100 0 0,1 330,180"
     fill="none"
     stroke="#22c55e"
-     strokeWidth="35"
+     strokeWidth="40"
     strokeDasharray="440"
     strokeDashoffset={440 * (1 - percentage / 100)}
     strokeLinecap="round"
@@ -365,33 +363,52 @@ const getRelativeTime = (dateString) => {
 
       {/* Header */}
       <div className="flex justify-between items-center mb-4 px-5 ">
-      <div className="flex flex-col justify-between items-start mt-5">
+      <div className="flex flex-col justify-between items-start -mt-20 ">
   <h2 className="text-lg lg:text-xl font-semibold text-gray-800">
     Review User Details
   </h2>
   <p className="text-xs sm:text-sm text-gray-500">
     You're one step closer to creating magic!
   </p>
-</div>
 
-
-
-     <div className="relative mt-5 flex justify-center items-center w-fit">
   
-  {/* Background Image Behind Button */}
-  {/* <img 
-    src="/Asset.svg" 
-    alt="Button Background" 
-    className="absolute inset-0 w-full h-full object-contain pointer-events-none" 
-  /> */}
-  {/* <Image src="/Assett.svg" alt="Asset" width={200} height={200} /> */}
+</div>
+ <div className="flex justify-center  -mt-20 sm:hidden">
+    <button
+      onClick={handleSendInvitations}
+      className="flex justify-center  px-2 py-2 text-sm
+    sm:px-8 sm:py-1 sm:text-base -mr-35 items-center gap-2 rounded-full font-semibold text-white transition-all duration-300 cursor-pointer shadow-md"
+      style={{
+        background: "linear-gradient(191deg, #FFCD43 8.17%, #C69A22 89.53%)",
+      }}
+    >
+      Send Invitation
+    </button>
+  </div>
 
-  {/* Actual Button */}
+
+
+
+<div className="relative mt-5 flex justify-center items-center w-fit">
+
+  {/* Background Image Hidden in Mobile */}
+  <Image 
+    src="/Asset.svg" 
+    alt="Asset"
+    width={200} 
+    height={200} 
+    className="w-[590px] h-full pointer-events-none -mt-18 -mr-126 hidden sm:block" 
+  />
+
+  {/* Actual Button with Mobile Disable Logic */}
   <button
     onClick={handleSendInvitations}
-    className="relative z-10 flex justify-center items-center gap-2 rounded-full font-semibold text-white transition-all duration-300 cursor-pointer shadow-md 
+    disabled
+    className="relative z-10 flex justify-center items-center gap-2 rounded-full font-semibold text-white transition-all duration-300 cursor-not-allowed shadow-md
     px-6 py-2 text-sm
-    sm:px-12 sm:py-2.5 sm:text-base"
+    sm:px-8 sm:py-2.5 sm:text-base
+    mt-25 sm:mt-0 ml-0 sm:ml-55 lg:-mt-25 
+    opacity-0 sm:opacity-100"
     style={{
       background: "linear-gradient(191deg, #FFCD43 8.17%, #C69A22 89.53%)",
     }}
@@ -401,10 +418,11 @@ const getRelativeTime = (dateString) => {
 </div>
 
 
+
       </div>
 
       {/* Table Section */}
-      <div className="text-gray-500 mb-4">
+      <div className="text-gray-500 mb-4 -mt-27 ">
         <div className="max-h-[260px] overflow-y-auto w-full rounded-[20px]">
           <table className="min-w-full divide-y divide-gray-200 text-gray-800">
             <thead className="bg-[#f3f4f6] sticky top-0 z-10">
@@ -443,14 +461,14 @@ const getRelativeTime = (dateString) => {
                     {user.status === 'Pending' && (
                       <div className="flex flex-col items-start">
                         <span
-                          className="px-3 py-1 text-xs leading-5 font-semibold rounded-full text-gray-800"
-                          style={{
-                            background: "linear-gradient(0deg, #C0C0C0 0%, #E3E3E3 100%)",
-                          }}
+                          className="px-4 py-0.5 text-xs leading-5 font-semibold rounded-full bg-gray-200 text-gray-800"
+                          // style={{
+                          //   background: "linear-gradient(0deg, #C0C0C0 0%, #E3E3E3 100%)",
+                          // }}
                         >
                           Pending
                         </span>
-                        <span className="text-xs text-gray-500 mt-1">
+                        <span className="text-xs text-gray-500 ">
                           {getRelativeTime(user.date)}
                         </span>
                       </div>

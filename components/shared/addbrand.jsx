@@ -500,17 +500,18 @@ backdropFilter: 'blur(8px)',
   {/* SVG + Progress Fill */}
   <div className="relative w-[300px] h-[150px] mt-2 sm:mt-5 overflow-hidden flex items-center justify-center">
 <div className=" -mt-3">
-   <svg
-  viewBox="0 0 300 180"
+<svg
+  viewBox="0 0 300 200"
   xmlns="http://www.w3.org/2000/svg"
-  className="w-[300px] h-[150px]"
+  className="w-[400px] h-[150px]"
 >
   {/* Background Arc */}
   <path
-    d="M20,160 A130,130 0 0,1 280,160"
+   d="M20,160 A130,130 0 0,1 280,160"
     fill="none"
     stroke="#E5E5E5"
-    strokeWidth="35"
+     strokeWidth="40"
+      strokeLinecap="round"
   />
 
   {/* Filled Arc */}
