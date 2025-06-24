@@ -287,37 +287,35 @@ const getRelativeTime = (dateString) => {
             <div className="bg-white rounded-3xl   flex flex-col items-center justify-center text-center relative overflow-hidden">
   {/* SVG + Progress Fill */}
   <div className="relative w-[530px] h-[150px] overflow-vissible mt-2 sm:mt-5  flex items-center justify-center">
-<div className=" mt-10 mr-10">
- <svg
-  viewBox="0 0 300 200"
+<div className=" mt-10">
+<svg
+  viewBox="0 0 300 180"
   xmlns="http://www.w3.org/2000/svg"
-  className="w-[400px] h-[150px]"
+  className="w-[340px] h-[250px]"
 >
   {/* Background Arc */}
   <path
- d="M20,180 A100,100 0 0,1 330,180"
+   d="M20,160 A80,80 0 0,1 280,160"
     fill="none"
     stroke="#E5E5E5"
-     strokeWidth="40"
+     strokeWidth="35"
       strokeLinecap="round"
   />
 
   {/* Filled Arc */}
   <path
- d="M20,180 A100,100 0 0,1 330,180"
+    d="M20,160 A130,130 0 0,1 280,160"
     fill="none"
     stroke="#22c55e"
-     strokeWidth="40"
+    strokeWidth="35"
     strokeDasharray="440"
-    strokeDashoffset={440 * (1 - percentage / 100)}
+    strokeDashoffset={440 - (users.length / 5) * 440}
     strokeLinecap="round"
     style={{
-      transition: 'stroke-dashoffset 0.5s ease-in-out',
+      transition: 'stroke-dashoffset 0.5s ease-in-out'
     }}
   />
 </svg>
-
-
 </div>
  {/* Centered Text */}
     <div className="absolute top-[50%] left-[50%] translate-x-[-50%] translate-y-[-20%] text-4xl font-bold text-gray-800 z-20">

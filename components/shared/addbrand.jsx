@@ -498,19 +498,19 @@ backdropFilter: 'blur(8px)',
             {/* Brands Added Counter */}
    <div className="bg-white rounded-3xl shadow-xl  p-2 flex flex-col items-center justify-center text-center relative overflow-hidden">
   {/* SVG + Progress Fill */}
-  <div className="relative w-[300px] h-[150px] mt-2 sm:mt-5 overflow-hidden flex items-center justify-center">
-<div className=" -mt-3">
+  <div className="relative w-[300px] h-[150px] mt-2 sm:mt-5  flex items-center justify-center">
+<div className=" mt-10">
 <svg
-  viewBox="0 0 300 200"
+  viewBox="0 0 300 180"
   xmlns="http://www.w3.org/2000/svg"
-  className="w-[400px] h-[150px]"
+  className="w-[400px] h-[250px]"
 >
   {/* Background Arc */}
   <path
-   d="M20,160 A130,130 0 0,1 280,160"
+   d="M20,160 A80,80 0 0,1 280,160"
     fill="none"
     stroke="#E5E5E5"
-     strokeWidth="40"
+     strokeWidth="35"
       strokeLinecap="round"
   />
 
